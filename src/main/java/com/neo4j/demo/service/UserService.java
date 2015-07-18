@@ -45,20 +45,29 @@ public class UserService implements IUserService{
    
    public String getUserInfoByAccount(String account){
       User user = userRepo.findByAccount(account);
-      return user.getAccount() + " " + user.getPassword();
+      return user.getPersonalInfo();
    }
    
-   public String updateUserInfo(String account, String info){
+   public String updateUserPersonalInfo(String account, String info){
       User user = userRepo.findByAccount(account);
-      user.setSchool(info);
+      user.setPersonalInfo(info);
       User newUser = userRepo.save(user);
-      return newUser.getSchool();
+      return newUser.getPersonalInfo();
    }
    
    public String updateUserHobby(String account, String hobby){
       User user = userRepo.findByAccount(account);
       user.setHobby(hobby);
-      User newUser = userRepo.save(user);
-      return newUser.getHobby();
+      userRepo.save(user);
+      return hobby;
+   }
+   
+   public String updateUserMoney(String account, String money){
+      User user = userRepo.findByAccount(account);
+      if(money.matches("\\d+")){
+         user.setMoney(money);
+      }
+      userRepo.save(user);
+      return money;
    }
 }

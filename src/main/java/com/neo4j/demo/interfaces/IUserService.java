@@ -20,6 +20,7 @@ public interface IUserService {
    public void deleteUser(User user);
    
    public String getUserInfoByAccount(String account);
-   public String updateUserInfo(String account, String info);
+   public String updateUserPersonalInfo(String account, String info);
    public String updateUserHobby(String account, String hobby);
+   public String updateUserMoney(String account, String money);
 }

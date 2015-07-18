@@ -8,8 +8,8 @@ import com.neo4j.demo.entity.DateInfo;
 import com.neo4j.demo.entity.Dates;
 import com.neo4j.demo.entity.User;
 import java.util.Iterator;
+import org.json.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.transaction.annotation.Transactional;
 
 
 public class Excutable {
@@ -20,18 +20,24 @@ public class Excutable {
    static DateInfoBean dateInfoBean = (DateInfoBean)context.getBean("dateInfoBean");
    static DatesBean datesBean = (DatesBean)context.getBean("datesBean");
    
-   @Transactional
+   
    public static void main(String[] args){
+      User user = userBean.findByAccount("yuhan");
+      
+      JSONObject obj = new JSONObject();
+      try{
+         obj.put("school", "nwpu");
+         obj.put("sid", "123456");
+         obj.put("major", "CIS");
+         obj.put("birthday", "19890407");
+      }catch (Exception e){
+         e.printStackTrace();
+      }
       
       
-//      System.out.println(retrieveDateInfo());
-//      System.out.println(acceptDate(new Long(4), "yuhan"));
-//      System.out.println(startDate("xiaozaozi"));
-//      System.out.println();
+      System.out.println(userBean.updateUserPersonalInfo("yuhan", obj.toString()));
       
       System.out.println(userBean.getUserInfoByAccount("yuhan"));
-      userBean.updateUserInfo("yuhan", "nwpu");
-      userBean.updateUserHobby("yuki", "TV");
       
       testAllUser();
       testAllDateInfo();
@@ -59,7 +65,16 @@ public class Excutable {
       System.out.println("User Node Count: " + userBean.getCount());
       while(users.hasNext()){
          User u = users.next();
-         System.out.println("User Account: " + u.getAccount() + "\tID: " + u.getId() + " " + "School: " + u.getSchool() + "\tHobby: " + u.getHobby());         
+         System.out.print("User Account: " + u.getAccount() + "\tID: " + u.getId());   
+         
+         try{
+            JSONObject infoObj = new JSONObject(u.getPersonalInfo());
+            System.out.print(" school: " + infoObj.getString("school"));
+            System.out.println(" homwtown: " + infoObj.getString("hometown"));
+         }catch (Exception e){
+            e.printStackTrace();
+         }
+         
       }
       System.out.println();
    }

@@ -10,6 +10,7 @@ import java.util.Date;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.json.*;
 
 /**
  *
@@ -25,8 +26,15 @@ public class User {
    private String password;
    private String registerDate;
    
+   private String gender;
    
    private String school;
+   private String sid;
+   private String major;
+   private String birthday;
+   private String hometown;
+   
+   private String money;
    private String hobby;
 
    
@@ -34,16 +42,11 @@ public class User {
       User user = new User();
       user.account = account;
       user.password = password;
-      user.registerDate = getCurrentTime();
+      user.registerDate = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
       
       return user;
    }
-   
-   
-   static private String getCurrentTime(){
-      SimpleDateFormat time=new SimpleDateFormat("yyyyMMddHHmmss"); 
-      return time.format(new Date());
-   }
+  
    
    /**
     * @return the id
@@ -106,6 +109,50 @@ public class User {
     */
    public void setHobby(String hobby) {
       this.hobby = hobby;
+   }
+   
+   public String getPersonalInfo(){
+      JSONObject obj = new JSONObject();
+      try{
+         obj.put("gender", gender);
+         obj.put("school", school);
+         obj.put("sid", sid);
+         obj.put("major", major);
+         obj.put("birthday", birthday);
+         obj.put("hometown", hometown);
+      } catch (Exception e){
+         e.printStackTrace();
+         return null;
+      }
+      
+      return obj.toString();
+   }
+   
+   public void setPersonalInfo(String info){
+      try{
+         JSONObject obj = new JSONObject(info);
+         this.school = obj.getString("school");
+         this.sid = obj.getString("sid");
+         this.major = obj.getString("major");
+         this.birthday = obj.getString("birthday");
+         this.hometown = obj.getString("hometown");
+      } catch (Exception e){
+         e.printStackTrace();
+      }
+   }
+
+   /**
+    * @return the money
+    */
+   public String getMoney() {
+      return money;
+   }
+
+   /**
+    * @param money the money to set
+    */
+   public void setMoney(String money) {
+      this.money = money;
    }
    
 }

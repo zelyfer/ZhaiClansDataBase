@@ -53,11 +53,15 @@ public class UserBean implements IUserService{
       return service.getUserInfoByAccount(account);
    }
    
-   public String updateUserInfo(String account, String info){
-      return service.updateUserInfo(account, info);
+   public String updateUserPersonalInfo(String account, String info){
+      return service.updateUserPersonalInfo(account, info);
    }
    
    public String updateUserHobby(String account, String info){
       return service.updateUserHobby(account, info);
+   }
+   
+   public String updateUserMoney(String account, String money){
+      return service.updateUserMoney(account, money);
    }
 }
