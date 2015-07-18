@@ -16,7 +16,7 @@ import org.springframework.data.neo4j.repository.GraphRepository;
  */
 public interface UserRepository extends GraphRepository<User>{
    User findByAccount(String account);
-   
+   void delete(User user);
    
    @Query("match (n:User) return n")
    Collection<User> getAll();

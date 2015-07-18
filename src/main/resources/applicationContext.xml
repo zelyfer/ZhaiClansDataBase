@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:context="http://www.springframework.org/schema/context"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:neo4j="http://www.springframework.org/schema/data/neo4j"
-  xmlns:tx="http://www.springframework.org/schema/tx"
-  xsi:schemaLocation="
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:neo4j="http://www.springframework.org/schema/data/neo4j"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
 
 http://www.springframework.org/schema/beans
 
@@ -29,15 +29,15 @@ http://www.springframework.org/schema/tx
 http://www.springframework.org/schema/tx/spring-tx.xsd">
 
    
-  <neo4j:config
-             storeDirectory="/Users/yorg/Public/tomcat/bin/octopusdb"
-             base-package="com.neo4j.demo.entity"/>
+   <neo4j:config
+      storeDirectory="zhaiclansdb"
+      base-package="com.neo4j.demo.entity"/>
   
-  <context:component-scan
-             base-package="com.neo4j.demo.service">
-       </context:component-scan>
+   <context:component-scan
+      base-package="com.neo4j.demo.service">
+   </context:component-scan>
        
-  <neo4j:repositories base-package="com.neo4j.demo.repository" />
+   <neo4j:repositories base-package="com.neo4j.demo.repository" />
   
 
 

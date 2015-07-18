@@ -34,13 +34,16 @@ public class User {
       User user = new User();
       user.account = account;
       user.password = password;
-      
-      SimpleDateFormat time=new SimpleDateFormat("yyyyMMddHHmmss"); 
-      user.registerDate = time.format(new Date());
+      user.registerDate = getCurrentTime();
       
       return user;
    }
    
+   
+   static private String getCurrentTime(){
+      SimpleDateFormat time=new SimpleDateFormat("yyyyMMddHHmmss"); 
+      return time.format(new Date());
+   }
    
    /**
     * @return the id
@@ -77,8 +80,4 @@ public class User {
       return registerDate;
    }
    
-   
-   public Dating initDate(User guest){
-      return Dating.create(this, guest);
-   }
 }

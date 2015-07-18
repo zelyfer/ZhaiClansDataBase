@@ -1,67 +1,59 @@
 package global;
 
 
-import com.neo4j.demo.bean.DatingBean;
+import com.neo4j.demo.bean.DateInfoBean;
+import com.neo4j.demo.bean.DatesBean;
 import com.neo4j.demo.bean.UserBean;
-import com.neo4j.demo.entity.Dating;
+import com.neo4j.demo.entity.DateInfo;
+import com.neo4j.demo.entity.Dates;
 import com.neo4j.demo.entity.User;
 import java.util.Iterator;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
 
 public class Excutable {
-   public static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+   public static ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
    
+   static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("file:/Users/yorg/Developer/ZhaiClansServer/beans.xml");
+   static UserBean userBean = (UserBean)context.getBean("userBean");
+   static DateInfoBean dateInfoBean = (DateInfoBean)context.getBean("dateInfoBean");
+   static DatesBean datesBean = (DatesBean)context.getBean("datesBean");
+   
+   @Transactional
    public static void main(String[] args){
-      ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("file:/Users/yorg/Developer/DateAppServer/DateAppServer/src/beans.xml");
       
       
-      UserBean userBean = (UserBean)context.getBean("userBean");
+      System.out.println(retrieveDateInfo());
+//      System.out.println(acceptDate(new Long(4), "yuhan"));
+//      System.out.println(startDate("xiaozaozi"));
+      System.out.println();
       
-      DatingBean datingBean = (DatingBean)context.getBean("datingBean");
+      testAllUser();
+      testAllDateInfo();
+      testAllDates();
       
-//      testUserCount(userBean);
-//      testAllUser(userBean);
-//      
-//      testDatingCount(datingBean);
-//      testAllDating(datingBean);
-//      
-//      testFreshDate(userBean, datingBean);
-      
-      System.out.println(userBean.getCount());
-
    }
    
-   public static void populateGraph(ClassPathXmlApplicationContext context){
-      UserBean userBean = (UserBean)context.getBean("userBean");
-      
-      User freshdate = userBean.create("freshdate","freshdate_pw");
+   public static void populateGraph(){
       User yuhan = userBean.create("yuhan","yuhan_pw");
       User yuki = userBean.create("yuki","yuki_pw");
+      User zaozi = userBean.create("xiaozaozi", "xiaozaozi_pw");
       
-      DatingBean datingBean = (DatingBean)context.getBean("datingBean");
-      datingBean.create(yuhan,freshdate);
-      datingBean.create(yuki,freshdate);
+      DateInfo dateInfo1 = dateInfoBean.create(yuhan.getAccount());
+      DateInfo dateInfo2 = dateInfoBean.create(yuki.getAccount());
+      DateInfo dateInfo3 = dateInfoBean.create(zaozi.getAccount());
+      
+      Dates dates = datesBean.create(yuhan,yuki,dateInfo1);
    }
    
-   public static Iterator<Dating> findAllFreshDate(ClassPathXmlApplicationContext context){
-      UserBean userBean = (UserBean)context.getBean("userBean");
-      DatingBean datingBean = (DatingBean)context.getBean("datingBean");
-      
-      User freshdate = userBean.findByAccount("freshDate");
-      Iterator<Dating> datings = datingBean.findByGuest(freshdate).iterator();
-      
-      return datings;
-   }
    
-   public static Long testUserCount(UserBean bean){
-      System.out.println("User Node Count: " + bean.getCount());
-      return bean.getCount();
-   }
    
-   public static void testAllUser(UserBean userBean){
+   public static void testAllUser(){
       Iterable<User> users = userBean.getAll();
       Iterator<User> it = users.iterator();
+      
+      System.out.println("User Node Count: " + userBean.getCount());
       while(it.hasNext()){
          User u = it.next();
          System.out.println("User Account: " + u.getAccount() + "\tID: " + u.getId());
@@ -69,31 +61,55 @@ public class Excutable {
       System.out.println();
    }
    
-   public static Long testDatingCount(DatingBean bean){
-      System.out.println("Dating Relationship Count: " + bean.getCount());
-      return bean.getCount();
-   }
    
-   public static void testAllDating(DatingBean datingBean){
-      Iterable<Dating> datings = datingBean.getAll();
-      Iterator<Dating> it = datings.iterator();
-      while(it.hasNext()){
-         Dating d = it.next();
-         System.out.println("Dating id: " + d.getId() + " Host: " + d.getHost().getAccount() + " Guest: " + d.getGuest().getAccount());
+   public static void testAllDateInfo(){
+      Iterator<DateInfo> dateInfos = dateInfoBean.findAll();
+      
+      while(dateInfos.hasNext()){
+         DateInfo d = dateInfos.next();
+         System.out.println("Dating id: " + d.getId() + " Host: " + d.getHostAccount());
       }
       System.out.println();
    }
    
-   public static void testFreshDate(UserBean userBean, DatingBean datingBean){
-      User fresh = userBean.findByAccount("freshdate");
-      Iterable<Dating> datings = datingBean.findByGuest(fresh);
-      System.out.println("Fresh Datings are: ");
-      Iterator<Dating> it = datings.iterator();
-      while(it.hasNext()){
-         System.out.println("Host Account: " + it.next().getHost().getAccount());
+   public static void testAllDates(){
+      Iterator<Dates> dates = datesBean.findAll();
+      
+      while(dates.hasNext()){
+         Dates d = dates.next();
+         System.out.println("id:\t" + d.getId() + "\tHost:\t" + d.getHost().getAccount() + "\tGuest:\t" + d.getGuest().getAccount());
       }
       System.out.println();
    }
+   
+   
+   
+   
+   
+   
+   static private String retrieveDateInfo(){
+//      String account = request.getParameter("account");
+      DateInfo dateInfo = dateInfoBean.getOne();
+      String ret = "host=" + dateInfo.getHostAccount() + "&guest=" + dateInfo.getGuestAccount();
+      
+      return dateInfo.getId().toString();
+   }
+   
+
+   static private String acceptDate(Long dateInfoId, String guestAccount){
+
+      Dates dates = datesBean.create(dateInfoId, guestAccount);
+      
+      return dates.getId().toString();
+   }
+   
+   
+   static private String startDate(String hostAccount){
+      DateInfo dateInfo = dateInfoBean.create(hostAccount);
+      
+      return dateInfo.getId().toString();
+   }
+   
 }
 
 

@@ -24,7 +24,7 @@ public class UserBean {
    UserService service = null;
    
    public UserBean(){
-      service = (UserService)(Excutable.context.getBean("userService"));
+      service = (UserService)(Excutable.applicationContext.getBean("userService"));
    }
    
    public User create(String account, String password){
@@ -48,5 +48,9 @@ public class UserBean {
    
    public Iterable<User> getAll(){
       return service.getAll();
+   }
+   
+   public void DeleteUser(User user){
+      service.deleteUser(user);
    }
 }
