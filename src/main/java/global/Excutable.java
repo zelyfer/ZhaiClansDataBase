@@ -24,10 +24,14 @@ public class Excutable {
    public static void main(String[] args){
       
       
-      System.out.println(retrieveDateInfo());
+//      System.out.println(retrieveDateInfo());
 //      System.out.println(acceptDate(new Long(4), "yuhan"));
 //      System.out.println(startDate("xiaozaozi"));
-      System.out.println();
+//      System.out.println();
+      
+      System.out.println(userBean.getUserInfoByAccount("yuhan"));
+      userBean.updateUserInfo("yuhan", "nwpu");
+      userBean.updateUserHobby("yuki", "TV");
       
       testAllUser();
       testAllDateInfo();
@@ -50,13 +54,12 @@ public class Excutable {
    
    
    public static void testAllUser(){
-      Iterable<User> users = userBean.getAll();
-      Iterator<User> it = users.iterator();
+      Iterator<User> users = userBean.findAll();
       
       System.out.println("User Node Count: " + userBean.getCount());
-      while(it.hasNext()){
-         User u = it.next();
-         System.out.println("User Account: " + u.getAccount() + "\tID: " + u.getId());
+      while(users.hasNext()){
+         User u = users.next();
+         System.out.println("User Account: " + u.getAccount() + "\tID: " + u.getId() + " " + "School: " + u.getSchool() + "\tHobby: " + u.getHobby());         
       }
       System.out.println();
    }

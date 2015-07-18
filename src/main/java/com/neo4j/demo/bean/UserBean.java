@@ -7,19 +7,18 @@ package com.neo4j.demo.bean;
 
 
 import com.neo4j.demo.entity.User;
+import com.neo4j.demo.interfaces.IUserService;
 import com.neo4j.demo.service.UserService;
 import global.Excutable;
-import java.util.Collection;
 import java.util.Iterator;
 import javax.faces.bean.ManagedBean;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author yorg
  */
 @ManagedBean(name="userBean")
-public class UserBean {
+public class UserBean implements IUserService{
    
    UserService service = null;
    
@@ -42,15 +41,23 @@ public class UserBean {
       return user;
    }
    
-   public Collection<User> findAll(){
-      return service.findAll().as(Collection.class);
+   public Iterator<User> findAll(){
+      return service.findAll();
    }
    
-   public Iterable<User> getAll(){
-      return service.getAll();
-   }
-   
-   public void DeleteUser(User user){
+   public void deleteUser(User user){
       service.deleteUser(user);
+   }
+   
+   public String getUserInfoByAccount(String account){
+      return service.getUserInfoByAccount(account);
+   }
+   
+   public String updateUserInfo(String account, String info){
+      return service.updateUserInfo(account, info);
+   }
+   
+   public String updateUserHobby(String account, String info){
+      return service.updateUserHobby(account, info);
    }
 }

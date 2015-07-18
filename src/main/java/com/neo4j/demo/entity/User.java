@@ -26,8 +26,8 @@ public class User {
    private String registerDate;
    
    
-//   @RelatedTo(type = "DATED")
-//   Set<User> datedUser;
+   private String school;
+   private String hobby;
 
    
    public static User createUser(String account, String password){
@@ -78,6 +78,34 @@ public class User {
     */
    public String getRegisterDate() {
       return registerDate;
+   }
+
+   /**
+    * @return the school
+    */
+   public String getSchool() {
+      return school;
+   }
+
+   /**
+    * @param school the school to set
+    */
+   public void setSchool(String school) {
+      this.school = school;
+   }
+
+   /**
+    * @return the hobby
+    */
+   public String getHobby() {
+      return hobby;
+   }
+
+   /**
+    * @param hobby the hobby to set
+    */
+   public void setHobby(String hobby) {
+      this.hobby = hobby;
    }
    
 }

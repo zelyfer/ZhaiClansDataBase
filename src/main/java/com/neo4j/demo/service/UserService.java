@@ -6,19 +6,18 @@
 package com.neo4j.demo.service;
 
 import com.neo4j.demo.entity.User;
+import com.neo4j.demo.interfaces.IUserService;
 import com.neo4j.demo.repository.UserRepository;
-import java.util.Collection;
+import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.conversion.Result;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author yorg
  */
 @Service("userService")
-public class UserService {
+public class UserService implements IUserService{
    @Autowired
    private UserRepository userRepo;
    
@@ -36,18 +35,30 @@ public class UserService {
       return user;
    }
    
-   public Result<User> findAll(){
-      Result<User> u = userRepo.findAll();
-      return u;
-   }
-   
-   public Iterable<User> getAll(){
-      return userRepo.getAll();
+   public Iterator<User> findAll(){
+      return userRepo.getAll().iterator();
    }
    
    public void deleteUser(User user){
       userRepo.delete(user);
    }
    
+   public String getUserInfoByAccount(String account){
+      User user = userRepo.findByAccount(account);
+      return user.getAccount() + " " + user.getPassword();
+   }
    
+   public String updateUserInfo(String account, String info){
+      User user = userRepo.findByAccount(account);
+      user.setSchool(info);
+      User newUser = userRepo.save(user);
+      return newUser.getSchool();
+   }
+   
+   public String updateUserHobby(String account, String hobby){
+      User user = userRepo.findByAccount(account);
+      user.setHobby(hobby);
+      User newUser = userRepo.save(user);
+      return newUser.getHobby();
+   }
 }
