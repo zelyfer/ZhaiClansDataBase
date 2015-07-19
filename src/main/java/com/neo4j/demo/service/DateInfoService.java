@@ -36,13 +36,7 @@ public class DateInfoService implements IDateInfoService {
       return dateInfos;
    }
    
-   public DateInfo getOne(){
-      Iterator<DateInfo> dateInfos = findAll();
-      if(dateInfos.hasNext()){
-         return dateInfos.next();
-      }
-      else {
-         return null;
-      }
+   public String getOneUnmatched(){
+      return dateInfoRepo.getOneUnmatched().toString();
    }
 }

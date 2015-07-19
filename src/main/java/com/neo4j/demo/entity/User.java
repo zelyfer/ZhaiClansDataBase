@@ -41,8 +41,19 @@ public class User {
    public static User createUser(String account, String password){
       User user = new User();
       user.account = account;
-      user.password = password;
+      user.setPassword(password);
       user.registerDate = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+      
+      user.setGender("");
+      user.setSchool("");
+      user.setSid("");
+      user.setMajor("");
+      user.setBirthday("");
+      user.setHometown("");
+      
+      user.setMoney("0");
+      user.setHobby("");
+      
       
       return user;
    }
@@ -111,35 +122,35 @@ public class User {
       this.hobby = hobby;
    }
    
-   public String getPersonalInfo(){
-      JSONObject obj = new JSONObject();
-      try{
-         obj.put("gender", gender);
-         obj.put("school", school);
-         obj.put("sid", sid);
-         obj.put("major", major);
-         obj.put("birthday", birthday);
-         obj.put("hometown", hometown);
-      } catch (Exception e){
-         e.printStackTrace();
-         return null;
-      }
-      
-      return obj.toString();
-   }
-   
-   public void setPersonalInfo(String info){
-      try{
-         JSONObject obj = new JSONObject(info);
-         this.school = obj.getString("school");
-         this.sid = obj.getString("sid");
-         this.major = obj.getString("major");
-         this.birthday = obj.getString("birthday");
-         this.hometown = obj.getString("hometown");
-      } catch (Exception e){
-         e.printStackTrace();
-      }
-   }
+//   public String getPersonalInfo(){
+//      JSONObject obj = new JSONObject();
+//      try{
+//         obj.put("gender", getGender());
+//         obj.put("school", school);
+//         obj.put("sid", getSid());
+//         obj.put("major", getMajor());
+//         obj.put("birthday", getBirthday());
+//         obj.put("hometown", getHometown());
+//      } catch (Exception e){
+//         e.printStackTrace();
+//         return null;
+//      }
+//      
+//      return obj.toString();
+//   }
+//   
+//   public void setPersonalInfo(String info){
+//      try{
+//         JSONObject obj = new JSONObject(info);
+//         this.school = obj.getString("school");
+//         this.setSid(obj.getString("sid"));
+//         this.setMajor(obj.getString("major"));
+//         this.setBirthday(obj.getString("birthday"));
+//         this.setHometown(obj.getString("hometown"));
+//      } catch (Exception e){
+//         e.printStackTrace();
+//      }
+//   }
 
    /**
     * @return the money
@@ -153,6 +164,76 @@ public class User {
     */
    public void setMoney(String money) {
       this.money = money;
+   }
+
+   /**
+    * @return the gender
+    */
+   public String getGender() {
+      return gender;
+   }
+
+   /**
+    * @param gender the gender to set
+    */
+   public void setGender(String gender) {
+      this.gender = gender;
+   }
+
+   /**
+    * @return the sid
+    */
+   public String getSid() {
+      return sid;
+   }
+
+   /**
+    * @param sid the sid to set
+    */
+   public void setSid(String sid) {
+      this.sid = sid;
+   }
+
+   /**
+    * @return the major
+    */
+   public String getMajor() {
+      return major;
+   }
+
+   /**
+    * @param major the major to set
+    */
+   public void setMajor(String major) {
+      this.major = major;
+   }
+
+   /**
+    * @return the birthday
+    */
+   public String getBirthday() {
+      return birthday;
+   }
+
+   /**
+    * @param birthday the birthday to set
+    */
+   public void setBirthday(String birthday) {
+      this.birthday = birthday;
+   }
+
+   /**
+    * @return the hometown
+    */
+   public String getHometown() {
+      return hometown;
+   }
+
+   /**
+    * @param hometown the hometown to set
+    */
+   public void setHometown(String hometown) {
+      this.hometown = hometown;
    }
    
 }

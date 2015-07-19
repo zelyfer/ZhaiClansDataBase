@@ -16,5 +16,9 @@ public interface IDateInfoService {
    DateInfo create(String hostAccount);
    DateInfo findOne(Long id);
    Iterator<DateInfo> findAll();
-   DateInfo getOne();
+   
+   
+   String getOneUnmatched();
+   
+   
 }

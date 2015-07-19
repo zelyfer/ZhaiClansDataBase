@@ -22,39 +22,29 @@ public class Excutable {
    
    
    public static void main(String[] args){
-      User user = userBean.findByAccount("yuhan");
       
-      JSONObject obj = new JSONObject();
-      try{
-         obj.put("school", "nwpu");
-         obj.put("sid", "123456");
-         obj.put("major", "CIS");
-         obj.put("birthday", "19890407");
-      }catch (Exception e){
-         e.printStackTrace();
-      }
+      String s = dateInfoBean.getOneUnmatched();
       
+      System.out.println(s);
       
-      System.out.println(userBean.updateUserPersonalInfo("yuhan", obj.toString()));
-      
-      System.out.println(userBean.getUserInfoByAccount("yuhan"));
-      
+//      populateGraph();
       testAllUser();
       testAllDateInfo();
       testAllDates();
+//      System.out.println("-Xms64m -Xmx256m jdbc_prog -classpath %classpath ${packageClassName}");
       
    }
    
    public static void populateGraph(){
-      User yuhan = userBean.create("yuhan","yuhan_pw");
-      User yuki = userBean.create("yuki","yuki_pw");
-      User zaozi = userBean.create("xiaozaozi", "xiaozaozi_pw");
+      userBean.create("yuhan","yuhan_pw");
+      userBean.create("yuki","yuki_pw");
+      userBean.create("xiaozaozi", "xiaozaozi_pw");
       
-      DateInfo dateInfo1 = dateInfoBean.create(yuhan.getAccount());
-      DateInfo dateInfo2 = dateInfoBean.create(yuki.getAccount());
-      DateInfo dateInfo3 = dateInfoBean.create(zaozi.getAccount());
+      DateInfo dateInfo1 = dateInfoBean.create("yuhan");
+      DateInfo dateInfo2 = dateInfoBean.create("yuki");
+      DateInfo dateInfo3 = dateInfoBean.create("xiaozaozi");
       
-      Dates dates = datesBean.create(yuhan,yuki,dateInfo1);
+      Dates dates = datesBean.create(dateInfo1.getId(), "yuki");
    }
    
    
@@ -65,16 +55,7 @@ public class Excutable {
       System.out.println("User Node Count: " + userBean.getCount());
       while(users.hasNext()){
          User u = users.next();
-         System.out.print("User Account: " + u.getAccount() + "\tID: " + u.getId());   
-         
-         try{
-            JSONObject infoObj = new JSONObject(u.getPersonalInfo());
-            System.out.print(" school: " + infoObj.getString("school"));
-            System.out.println(" homwtown: " + infoObj.getString("hometown"));
-         }catch (Exception e){
-            e.printStackTrace();
-         }
-         
+         System.out.print("User Account: " + u.getAccount() + "\tID: " + u.getId() + "\t" + userBean.getUserInfoByAccount(u.getAccount()));   
       }
       System.out.println();
    }
@@ -105,13 +86,13 @@ public class Excutable {
    
    
    
-   static private String retrieveDateInfo(){
-//      String account = request.getParameter("account");
-      DateInfo dateInfo = dateInfoBean.getOne();
-      String ret = "host=" + dateInfo.getHostAccount() + "&guest=" + dateInfo.getGuestAccount();
-      
-      return dateInfo.getId().toString();
-   }
+//   static private String retrieveDateInfo(){
+////      String account = request.getParameter("account");
+//      DateInfo dateInfo = dateInfoBean.getOne();
+//      String ret = "host=" + dateInfo.getHostAccount() + "&guest=" + dateInfo.getGuestAccount();
+//      
+//      return dateInfo.getId().toString();
+//   }
    
 
    static private String acceptDate(Long dateInfoId, String guestAccount){

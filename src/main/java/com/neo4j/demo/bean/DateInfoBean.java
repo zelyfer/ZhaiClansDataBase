@@ -35,7 +35,7 @@ public class DateInfoBean implements IDateInfoService{
       return service.findAll();
    }
    
-   public DateInfo getOne(){
-      return service.getOne();
+   public String getOneUnmatched(){
+      return service.getOneUnmatched();
    }
 }

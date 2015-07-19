@@ -26,7 +26,7 @@ public class UserBean implements IUserService{
       service = (UserService)(Excutable.applicationContext.getBean("userService"));
    }
    
-   public User create(String account, String password){
+   public Boolean create(String account, String password){
 
       return service.create(account, password);
       
@@ -53,15 +53,15 @@ public class UserBean implements IUserService{
       return service.getUserInfoByAccount(account);
    }
    
-   public String updateUserPersonalInfo(String account, String info){
+   public Boolean updateUserPersonalInfo(String account, String info){
       return service.updateUserPersonalInfo(account, info);
    }
    
-   public String updateUserHobby(String account, String info){
+   public Boolean updateUserHobby(String account, String info){
       return service.updateUserHobby(account, info);
    }
    
-   public String updateUserMoney(String account, String money){
+   public Boolean updateUserMoney(String account, String money){
       return service.updateUserMoney(account, money);
    }
 }

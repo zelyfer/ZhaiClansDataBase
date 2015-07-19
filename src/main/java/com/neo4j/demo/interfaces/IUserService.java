@@ -13,14 +13,14 @@ import java.util.Iterator;
  * @author yorg
  */
 public interface IUserService {
-   public User create(String account, String password);
+   public Boolean create(String account, String password);
    public long getCount();
-   public User findByAccount(String account);
-   public Iterator<User> findAll();
-   public void deleteUser(User user);
+//   public User findByAccount(String account);
+//   public Iterator<User> findAll();
+//   public void deleteUser(User user);
    
    public String getUserInfoByAccount(String account);
-   public String updateUserPersonalInfo(String account, String info);
-   public String updateUserHobby(String account, String hobby);
-   public String updateUserMoney(String account, String money);
+   public Boolean updateUserPersonalInfo(String account, String info);
+   public Boolean updateUserHobby(String account, String hobby);
+   public Boolean updateUserMoney(String account, String money);
 }

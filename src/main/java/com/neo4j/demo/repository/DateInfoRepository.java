@@ -22,6 +22,14 @@ public interface DateInfoRepository extends GraphRepository<DateInfo> {
    
    Collection<DateInfo> findByHostAccount(String hostAccount);
    
+   @Query("match (n:DateInfo) " +
+           "where n.guestAccount IS NULL " +
+           "return n limit 1")
+   DateInfo getOneUnmatched();
    
+   @Query("match (n:DateInfo) " +
+           "where n.guestAccount IS NULL " +
+           "return n")
+   Collection<DateInfo> getAllUnmatched();
    
 }
