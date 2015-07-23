@@ -40,11 +40,11 @@ public class Excutable {
       userBean.create("yuki","yuki_pw");
       userBean.create("xiaozaozi", "xiaozaozi_pw");
       
-      DateInfo dateInfo1 = dateInfoBean.create("yuhan");
-      DateInfo dateInfo2 = dateInfoBean.create("yuki");
-      DateInfo dateInfo3 = dateInfoBean.create("xiaozaozi");
+//      DateInfo dateInfo1 = dateInfoBean.create("yuhan");
+//      DateInfo dateInfo2 = dateInfoBean.create("yuki");
+//      DateInfo dateInfo3 = dateInfoBean.create("xiaozaozi");
       
-      Dates dates = datesBean.create(dateInfo1.getId(), "yuki");
+//      Dates dates = datesBean.create(dateInfo1.getId(), "yuki");
    }
    
    
@@ -55,7 +55,7 @@ public class Excutable {
       System.out.println("User Node Count: " + userBean.getCount());
       while(users.hasNext()){
          User u = users.next();
-         System.out.print("User Account: " + u.getAccount() + "\tID: " + u.getId() + "\t" + userBean.getUserInfoByAccount(u.getAccount()));   
+         System.out.println("User Account: " + u.getAccount() + "\tID: " + u.getId() + "\t" + userBean.getUserInfoByAccount(u.getAccount()));   
       }
       System.out.println();
    }
@@ -103,11 +103,11 @@ public class Excutable {
    }
    
    
-   static private String startDate(String hostAccount){
-      DateInfo dateInfo = dateInfoBean.create(hostAccount);
-      
-      return dateInfo.getId().toString();
-   }
+//   static private String startDate(String hostAccount){
+//      DateInfo dateInfo = dateInfoBean.create(hostAccount);
+//      
+//      return dateInfo.getId().toString();
+//   }
    
 }
 

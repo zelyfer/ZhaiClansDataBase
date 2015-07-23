@@ -23,7 +23,7 @@ public class DateInfo {
    
    private String time;
    private String place;
-   private String[] topic;
+   private String topic;
 
    
    public static DateInfo create(String hostAccount){
@@ -77,14 +77,14 @@ public class DateInfo {
    /**
     * @return the topic
     */
-   public String[] getTopic() {
+   public String getTopic() {
       return topic;
    }
 
    /**
     * @param topic the topic to set
     */
-   public void setTopic(String[] topic) {
+   public void setTopic(String topic) {
       this.topic = topic;
    }
 

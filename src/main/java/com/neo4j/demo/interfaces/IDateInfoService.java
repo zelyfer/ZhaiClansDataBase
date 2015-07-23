@@ -13,12 +13,14 @@ import java.util.Iterator;
  * @author yorg
  */
 public interface IDateInfoService {
-   DateInfo create(String hostAccount);
+   String create(String hostAccount);
    DateInfo findOne(Long id);
    Iterator<DateInfo> findAll();
    
    
    String getOneUnmatched();
-   
+   String toJSON(DateInfo dateInfo);
+   String create(String hostAccount, String time, String place, String topic);
+   String updateDateInfo(String id, String time, String place, String topic);
    
 }

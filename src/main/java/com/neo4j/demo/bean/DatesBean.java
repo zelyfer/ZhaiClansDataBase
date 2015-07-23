@@ -12,11 +12,13 @@ import com.neo4j.demo.interfaces.IDatesService;
 import com.neo4j.demo.service.DatesService;
 import global.Excutable;
 import java.util.Iterator;
+import javax.faces.bean.ManagedBean;
 
 /**
  *
  * @author yorg
  */
+@ManagedBean(name="datesBean")
 public class DatesBean implements IDatesService{
    DatesService service;
    
